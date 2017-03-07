@@ -27,8 +27,6 @@ def mostrar(palabra):
 	for i in range(0,len(palabra)):
 		palabra[i] = binarizar(palabra[i])
 	print (palabra)
-	
-	
 
 
 
@@ -72,6 +70,53 @@ def prga(clave_s):
 		res += [int(data[i]) ^ int(sol[i])]
 	mostrar(res)
 
+def prga2(clave_s):
+
+	i = 0
+	f = 0
+	k = 0
+	j = 0
+	p = 0
+	w = 5
+	z = 0
+	t = 0
+	data = in_data()
+	################################
+	while k < len(data):
+		i = (i + w)%256
+
+		print("i: "+str(i))
+
+		j = (p + clave_s[(j + clave_s[i])%256])%256
+
+		print("j: "+str(j))
+
+		p = (i + p + clave_s[j])%256
+
+		print("k: "+str(p))
+
+		aux = clave_s[i]
+		clave_s[i] = clave_s[j]
+		clave_s[j] = aux
+
+		t = clave_s[(j+clave_s[(i+clave_s[(t + p)])%256])%256] 
+
+		print("z: "+str(t))
+		print("-----")
+		####################################
+		if k == 0:
+			sol = [clave_s[t]]
+		else:
+			sol += [clave_s[t]]
+		k = k+1
+	#print(int(data[0]) ^ int(sol[0]))
+	res = [int(data[0]) ^ int(sol[0])]
+	for i in range(1,len(sol)):
+		#print(int(data[i]) ^ int(sol[i]))
+		res += [int(data[i]) ^ int(sol[i])]
+	mostrar(res)
+
+
 
 def generate():
 	vector_s = generate_s();
@@ -85,11 +130,14 @@ def generate():
 		vector_s[i] = aux
 	print(vector_s)
 	print(vector_c)
-	prga_ = prga(vector_s)
+	prga_ = prga2(vector_s)
 #for i = 0 to 255{
 #f = (f + S[i] + K[i]) mod 256;
 #intercambia S[i] y S[f];}
-	
+
+#for i = 0 to 255{
+#f = (f + S[i] + K[i]) mod 256;
+#intercambia S[i] y S[f];}
 w = 's'
 while w == 's':
 	generate();
